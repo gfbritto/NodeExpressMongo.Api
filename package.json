@@ -8,9 +8,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Gabriel Brito",
+    "email": "gfbritto@outlook.com",
+    "url": "http://github.com/gfbritto"
+  },
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
