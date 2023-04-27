@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: API de Livros
+  version: 1.0.0
+  description: API para gerenciar livros
+servers:
+  - url: http://localhost:3000
+paths:
+  /books:
+    get:
+      summary: Lista todos os livros
+      operationId: listBooks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Cria um novo livro
+      operationId: createBook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+  /books/{bookId}:
+    parameters:
+      - name: bookId
+        in: path
+        description: ID do livro
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Retorna um livro específico
+      operationId: getBookById
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Not Found
+    put:
+      summary: Atualiza um livro existente
+      operationId: updateBookById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Not Found
+    delete:
+      summary: Deleta um livro existente
+      operationId: deleteBookById
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+      required:
+        - id
+        - title
+    BookInput:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title

@@ -12,7 +12,7 @@ const books = [
 ]
 
 app.get('/', (req, res) => {
-    res.status(200).send('Curso de node');
+    res.redirect('/api-docs');
 })
 
 app.get('/books', (req, res) => {
