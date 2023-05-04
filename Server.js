@@ -7,7 +7,6 @@ import { load } from 'js-yaml';
 import swaggerUi from 'swagger-ui-express';
 const swaggerFile = load(readFileSync('./swagger/swagger.yaml', 'utf8'));
 
-
 const port = process.env.PORT || 3000;
 
 // add swagger docs
