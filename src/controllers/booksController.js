@@ -14,7 +14,7 @@ class LivroController {
             return res.status(500).json({ error: error.message });
         }
     }
-    
+
     static async getAll(req, res) {
         try {
             const response = await Book.find();
@@ -28,7 +28,7 @@ class LivroController {
     static async create(req, res) {
         try {
             const book = new Book(req.body);
-            const createdBookResponse = await book.create(book);
+            const createdBookResponse = await Book.create(book);
             res.status(201).send(createdBookResponse)
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -58,7 +58,7 @@ class LivroController {
         try {
             const { id } = req.params
             console.log(id);
-            const response = Book.deleteOne({ id: id });
+            const response = await Book.deleteOne({ _id: id });
             console.log(response.deletedCount)
             if (response.deletedCount === 0) {
                 res.status(400).send(`The book with id ${id} does not exist`);
