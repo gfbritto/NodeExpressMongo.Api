@@ -1,11 +1,17 @@
 import Book from "../models/Book.js";
 
+import { authorsCollection } from "../config/dbCollections.js";
+
+const authorProperty = 'author';
+
 class LivroController {
 
     static async getById(req, res) {
         try {
             const { id } = req.params;
-            const book = await Book.findById(id);
+            const book = await Book.findById(id)
+                .populate(authorProperty)
+                .exec();
             if (!book) {
                 return res.status(404).send({ message: 'Book not found' });
             }
@@ -17,8 +23,12 @@ class LivroController {
 
     static async getAll(req, res) {
         try {
-            const response = await Book.find();
-            console.log(response);
+            const response = await Book.find()
+                .populate(authorProperty)
+                .exec();
+            if (!response) {
+                return res.status(404).send({ message: 'Books not found' });
+            }
             return res.send(response);
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -39,7 +49,7 @@ class LivroController {
         try {
             const { id, title, author, publisher, numberOfPages } = req.body;
             const bookToUpdate = { title, author, publisher, numberOfPages };
-            
+
             const result = await Book.findByIdAndUpdate(
                 id,
                 bookToUpdate,

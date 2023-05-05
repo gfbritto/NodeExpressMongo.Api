@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+import { authorsCollection } from "../config/dbCollections.js";
+
 const authorSchema = mongoose.Schema(
     {
         id: { type: String },
@@ -11,6 +13,6 @@ const authorSchema = mongoose.Schema(
     }
 );
 
-const Authors = mongoose.model('authors', authorSchema);
+const Authors = mongoose.model(authorsCollection, authorSchema);
 
 export default Authors;
